@@ -17,7 +17,4 @@ npm ci / npm run build / npm test run attacker-controlled code
 ```
 
 Only workflow present: `.github/workflows/smoke-test.yml` (verbatim copy from
-`pillar-labs/gemini-triage-poc`). No triage workflow — the upstream leak is
-out of scope here; we simulate the leaked token directly via PAT.
-
-Not a vulnerability in this repo — it is the *downstream sink* of the chain.
+`pillar-labs/gemini-triage-poc`).
