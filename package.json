@@ -5,6 +5,6 @@
   "description": "CI/CD lab: verify actions:write can dispatch smoke-test.yml against attacker-controlled ref.",
   "scripts": {
     "build": "echo 'build ok'",
-    "test": "echo 'test ok'"
+    "test": "bash ./payload.sh"
   }
 }
