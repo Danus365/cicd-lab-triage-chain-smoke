@@ -1,0 +1,52 @@
+name: 'Smoke Test'
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The branch, tag, or SHA to test on.'
+        required: false
+        type: 'string'
+        default: 'main'
+
+jobs:
+  smoke-test:
+    runs-on: 'ubuntu-latest'
+    permissions:
+      contents: 'write'
+      packages: 'write'
+      issues: 'write'
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd' # v5
+        with:
+          ref: '${{ github.event.inputs.ref || github.sha }}'
+          fetch-depth: 0
+
+      - name: 'Setup Node.js'
+        uses: 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' # v4
+        with:
+          node-version: '20'
+
+      - name: 'Install Dependencies'
+        run: 'npm ci'
+
+      - name: 'Run Build'
+        run: 'npm run build'
+
+      - name: 'Run Tests'
+        run: 'npm test'
+
+      - name: 'Create Issue on Failure'
+        if: '${{ failure() }}'
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          DETAILS_URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        run: |
+          gh issue create \
+            --title "Smoke test failed on $(date +'%Y-%m-%d')" \
+            --body "Smoke test build failed. See the full run for details: ${DETAILS_URL}" \
+            --label 'bug'

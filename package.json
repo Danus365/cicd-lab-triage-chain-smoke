@@ -1,0 +1,10 @@
+{
+  "name": "cicd-lab-triage-chain-smoke",
+  "version": "0.0.1",
+  "private": true,
+  "description": "CI/CD lab: verify actions:write can dispatch smoke-test.yml against attacker-controlled ref.",
+  "scripts": {
+    "build": "echo 'build ok'",
+    "test": "echo 'test ok'"
+  }
+}
