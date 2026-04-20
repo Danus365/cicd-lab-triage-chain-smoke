@@ -21,3 +21,6 @@ Only workflow present: `.github/workflows/smoke-test.yml` (verbatim copy from
 out of scope here; we simulate the leaked token directly via PAT.
 
 Not a vulnerability in this repo — it is the *downstream sink* of the chain.
+
+<!-- contributor note: minor doc touch-up -->
+
